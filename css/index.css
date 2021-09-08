@@ -69,7 +69,7 @@ body {
   width:22px;
   padding:0 0 0 0;
   height:50%;
-  margin:1.5vh 0 0 0;
+  margin:2vh 0 0 0;
   position:static;
 }
 #i1p5o{
@@ -979,12 +979,8 @@ body {
     margin:0 0 0 0;
   }
   #iub04r{
-    position:relative;
-    top:55vh;
-  }
-  #iub04r{
     position:absolute;
-    top:150vh;
+    top:160vh;
     width:100vw;
   }
   #iel4p{
