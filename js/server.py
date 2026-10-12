@@ -7,7 +7,6 @@ import re
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from scipy.spatial.transform import Rotation as R
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from tapipy.tapis import Tapis
@@ -29,17 +28,26 @@ def cartesian_to_lonlat(x, y, z):
     return np.degrees(lon), np.degrees(lat)
 
 def trajectory(Omega, P0):
-    """Generates the rotation track around Omega"""
+    """Generates the rotation track around Omega using Rodrigues' rotation formula"""
     Omega_norm = Omega / np.linalg.norm(Omega)
     P0_norm = P0 / np.linalg.norm(P0)
-    
+
     thetas = np.linspace(0, 2 * np.pi, 200)
-    rot_vecs = np.outer(thetas, Omega_norm)
-    rotations = R.from_rotvec(rot_vecs)
-    
-    P_traj = rotations.apply(P0_norm)
+
+    # Rodrigues' rotation formula:
+    # v_rot = v * cos(th) + (k x v) * sin(th) + k * (k . v) * (1 - cos(th))
+    k = Omega_norm
+    v = P0_norm
+    k_cross_v = np.cross(k, v)
+    k_dot_v = np.dot(k, v)
+
+    cos_t = np.cos(thetas)[:, np.newaxis]
+    sin_t = np.sin(thetas)[:, np.newaxis]
+
+    P_traj = v * cos_t + k_cross_v * sin_t + k * k_dot_v * (1.0 - cos_t)
+
     lon_traj, lat_traj = cartesian_to_lonlat(P_traj[:, 0], P_traj[:, 1], P_traj[:, 2])
-    
+
     diffs = np.abs(np.diff(lon_traj))
     split_indices = np.where(diffs > 180)[0] + 1
     lon_traj = np.insert(lon_traj, split_indices, np.nan)
