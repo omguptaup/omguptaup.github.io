@@ -54,6 +54,10 @@ def trajectory(Omega, P0):
     lat_traj = np.insert(lat_traj, split_indices, np.nan)
     return lon_traj, lat_traj
 
+@app.route("/", methods=["GET"])
+def health_check():
+  return "Backend server is running and healthy!", 200
+
 @app.route("/run-simulation", methods=["POST"])
 def run_simulation():
     data = request.json
