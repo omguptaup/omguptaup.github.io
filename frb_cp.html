@@ -3,69 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magnetar Wind Polarization Plotter</title>
+    <title>Faraday Conversion: Polarization Evolution in Magnetar Wind</title>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0; padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; 
+            padding: 20px;
             background-color: #f4f7f6;
             color: #333;
         }
-        h1 { text-align: center; color: #2c3e50; }
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            margin-bottom: 30px;
+        }
         .container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 1400px;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 1100px; /* Comfortably wider than the 1000px plot */
             margin: 0 auto;
         }
-        .sidebar {
-            flex: 1;
-            min-width: 300px;
+        
+        /* OUTPUT AREA (TOP) */
+        .output-area {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .main-content {
-            flex: 2;
-            min-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            align-items: center; /* Centers the plot */
+            overflow-x: auto; /* Adds scrollbar if window is too small */
         }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;}
-        input[type="number"], input[type="text"], select {
-            width: 100%; padding: 8px; box-sizing: border-box;
-            border: 1px solid #ccc; border-radius: 4px;
-        }
-        .stokes-group {
-            background: #eef2f3; padding: 15px; border-radius: 8px; margin-bottom: 15px;
-        }
-        button {
-            background-color: #3498db; color: white; border: none;
-            padding: 10px 15px; font-size: 16px; border-radius: 5px;
-            cursor: pointer; width: 100%; margin-top: 10px;
-        }
-        button:hover { background-color: #2980b9; }
-        .btn-secondary { background-color: #95a5a6; margin-top: 5px;}
-        .btn-secondary:hover { background-color: #7f8c8d; }
-        
         #plot-div {
-            background: #fff; padding: 20px; border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            min-height: 500px; width: 100%;
+            width: 1000px;
+            min-height: 450px;
         }
         #warning-div {
             background: #f39c12; color: white; padding: 15px;
             border-radius: 8px; display: none; font-weight: bold;
+            width: 100%; box-sizing: border-box; margin-bottom: 15px;
         }
         #loading {
             text-align: center; font-weight: bold; font-size: 18px;
-            color: #2980b9; display: none; margin-top: 20px;
+            color: #2980b9; display: none; margin: 40px 0;
         }
+
+        /* INPUT AREA (BOTTOM) */
+        .input-area {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .input-area h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 30px;
+        }
+        .form-group { 
+            margin-bottom: 5px; 
+        }
+        label { 
+            display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px;
+            color: #444;
+        }
+        input[type="number"], input[type="text"], select {
+            width: 100%; padding: 10px; box-sizing: border-box;
+            border: 1px solid #ccc; border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        /* STOKES SUB-GRID */
+        .stokes-group {
+            grid-column: span 2; /* Spans both columns of the main grid */
+            background: #eef2f3; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin-top: 10px;
+        }
+        .stokes-group h4 { margin: 0 0 15px 0; color: #2c3e50;}
+        .stokes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        button {
+            background-color: #3498db; color: white; border: none;
+            padding: 12px 15px; font-size: 16px; border-radius: 5px; font-weight: bold;
+            cursor: pointer; width: 100%; margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #2980b9; }
+        .btn-secondary { 
+            background-color: #95a5a6; margin-top: 15px; width: auto; 
+            padding: 10px 20px; font-size: 14px;
+        }
+        .btn-secondary:hover { background-color: #7f8c8d; }
     </style>
 </head>
 <body>
@@ -73,47 +117,63 @@
 <h1>Magnetar Wind Polarization Plotter</h1>
 
 <div class="container">
-    <!-- INPUT SIDEBAR -->
-    <div class="sidebar">
-        <h3>Simulation Parameters</h3>
-        <div class="form-group"><label>nu_start</label><input type="number" id="nu_start" value="1.0e9"></div>
-        <div class="form-group"><label>nu_end</label><input type="number" id="nu_end" value="1.1e9"></div>
-        <div class="form-group"><label>nu_points</label><input type="number" id="nu_points" value="101"></div>
-        <div class="form-group"><label>wind_mag0</label><input type="number" id="wind_mag0" value="10000.0"></div>
-        <div class="form-group"><label>gamma0</label><input type="number" id="gamma0" value="10.0"></div>
-        <div class="form-group"><label>mugamma</label><input type="number" id="mugamma" value="1.0"></div>
-        <div class="form-group"><label>iload</label><input type="number" id="iload" value="0.001" step="0.001"></div>
-        <div class="form-group"><label>phi_B</label><input type="number" id="phi_B" value="0.0"></div>
-        <div class="form-group"><label>L_frb</label><input type="number" id="L_frb" value="1e40"></div>
-        <div class="form-group"><label>L_wind_37</label><input type="number" id="L_wind_37" value="10.0"></div>
-        <div class="form-group">
-            <label>nframes (Max 200)</label>
-            <input type="number" id="nframes" value="100" min="1" max="200" step="1">
+    
+    <!-- OUTPUT AREA (TOP) -->
+    <div class="output-area">
+        <div id="warning-div"></div>
+        <div id="loading">Initializing Abaco Container and Computing... Please wait.</div>
+        <div id="plot-div">
+            <!-- This empty placeholder helps hold the layout size before the first run -->
+            <div style="height: 400px; display: flex; align-items: center; justify-content: center; color: #999;">
+                Simulation output will appear here.
+            </div>
         </div>
-        <div class="form-group">
-            <label>Choice</label>
-            <select id="choice">
-                <option value="1">Stokes Q, U, V</option>
-                <option value="2" selected>PA, EA</option>
-            </select>
-        </div>
+    </div>
 
-        <div class="stokes-group">
-            <h4>Initial Stokes Parameters</h4>
-            <div class="form-group"><label>Q_in</label><input type="number" id="Q_in" value="0.7" step="0.001"></div>
-            <div class="form-group"><label>U_in</label><input type="number" id="U_in" value="0.7141428" step="0.001"></div>
-            <div class="form-group"><label>V_in</label><input type="number" id="V_in" value="0.0" step="0.001"></div>
-            <button type="button" class="btn-secondary" onclick="resolveStokes()">Resolve Stokes</button>
+    <!-- INPUT AREA (BOTTOM) -->
+    <div class="input-area">
+        <h3>Simulation Parameters</h3>
+        <div class="input-grid">
+            <div class="form-group"><label>nu_start (Hz)</label><input type="number" id="nu_start" value="1.0e9"></div>
+            <div class="form-group"><label>nu_end (Hz)</label><input type="number" id="nu_end" value="1.1e9"></div>
+            
+            <div class="form-group"><label>nu_points</label><input type="number" id="nu_points" value="101"></div>
+            <div class="form-group"><label>wind_mag0</label><input type="number" id="wind_mag0" value="10000.0"></div>
+            
+            <div class="form-group"><label>gamma0</label><input type="number" id="gamma0" value="10.0"></div>
+            <div class="form-group"><label>mugamma</label><input type="number" id="mugamma" value="1.0"></div>
+            
+            <div class="form-group"><label>iload</label><input type="number" id="iload" value="0.001" step="0.001"></div>
+            <div class="form-group"><label>phi_B</label><input type="number" id="phi_B" value="0.0"></div>
+            
+            <div class="form-group"><label>L_frb</label><input type="number" id="L_frb" value="1e40"></div>
+            <div class="form-group"><label>L_wind_37</label><input type="number" id="L_wind_37" value="10.0"></div>
+            
+            <div class="form-group">
+                <label>nframes (Max 200)</label>
+                <input type="number" id="nframes" value="100" min="1" max="200" step="1">
+            </div>
+            <div class="form-group">
+                <label>Polarization representation</label>
+                <select id="choice">
+                    <option value="1">Stokes Q, U, V</option>
+                    <option value="2" selected>PA, EA</option>
+                </select>
+            </div>
+
+            <!-- STOKES PARAMS -->
+            <div class="stokes-group">
+                <h4>Initial Stokes Parameters</h4>
+                <div class="stokes-grid">
+                    <div class="form-group"><label>Q_in</label><input type="number" id="Q_in" value="0.7" step="0.001"></div>
+                    <div class="form-group"><label>U_in</label><input type="number" id="U_in" value="0.7141428" step="0.001"></div>
+                    <div class="form-group"><label>V_in</label><input type="number" id="V_in" value="0.0" step="0.001"></div>
+                </div>
+                <button type="button" class="btn-secondary" onclick="resolveStokes()">Resolve Stokes</button>
+            </div>
         </div>
 
         <button onclick="runSimulation()">Run Simulation</button>
-    </div>
-
-    <!-- OUTPUT AREA -->
-    <div class="main-content">
-        <div id="warning-div"></div>
-        <div id="loading">Sending parameters to the server and computing... Please wait.</div>
-        <div id="plot-div"></div>
     </div>
 </div>
 
@@ -165,6 +225,7 @@
         }
     }
 
+    // 2. Logic to run the simulation via your Render Proxy
     async function runSimulation() {
         // Validate max frames
         let nframes = parseInt(document.getElementById('nframes').value);
@@ -197,32 +258,33 @@
         
         loadingDiv.style.display = 'block';
         warningDiv.style.display = 'none';
-        loadingDiv.innerText = "Submitting execution to TACC... This may take a moment.";
-        Plotly.purge('plot-div'); // Clear previous plot
+        
+        // Remove the placeholder or old plot
+        Plotly.purge('plot-div'); 
 
         try {
-            // NOTE: Change this URL to your live Render proxy URL (e.g., https://your-app.onrender.com/run-simulation)
+            // Send payload to your remote Render Flask proxy
             const response = await fetch("https://omguptaup-github-io.onrender.com/run-simulation", {
-                method: "POST",
+                method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
             
-            const data = await response.json();
+            const logsData = await response.json();
             
-            if (data.status !== "success") {
-                throw new Error(data.message || "Failed to process simulation on the server.");
+            if (logsData.status === "error") {
+                throw new Error(logsData.message);
             }
 
-            // Display Warning if any
-            if (data.warning) {
-                warningDiv.innerText = data.warning;
+            // Display Warning if Fortran/Python generated one
+            if (logsData.warning) {
+                warningDiv.innerText = logsData.warning;
                 warningDiv.style.display = 'block';
             }
 
-            // Render Plotly graph directly from the proxy's parsed JSON
+            // Render Plotly graph directly from the pre-parsed backend figure JSON
             loadingDiv.style.display = 'none';
-            Plotly.newPlot('plot-div', data.plotData.data, data.plotData.layout);
+            Plotly.newPlot('plot-div', logsData.plotData.data, logsData.plotData.layout);
 
         } catch (error) {
             loadingDiv.style.display = 'none';
