@@ -1,0 +1,549 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #f1bdbd;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333333;
+}
+
+/* Base grid and column utilities */
+.gpd-clm {
+  padding: 5px 0;
+}
+.gpd-grid {
+  min-height: auto;
+  padding: 10px 0;
+}
+.gpd-cnt {
+  padding: 0;
+}
+.gpd-box {
+  padding: 5px 0;
+}
+.gpd-header {
+  margin: 0;
+}
+
+/* ==========================================================================
+   TOP NAVIGATION PANEL (White Background)
+   ========================================================================== */
+#imyq {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: static;
+  z-index: 10;
+}
+#ip3p {
+  padding: 0;
+}
+#ir5f {
+  justify-content: space-between;
+  align-items: center;
+  min-height: auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+#ilpm {
+  flex: 0 1 auto;
+}
+#i3ci {
+  min-height: 25px;
+  min-width: 25px;
+  margin: 0;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+#ilfm {
+  font-size: 0;
+}
+#ivr5b {
+  width: 22px;
+  padding: 0;
+  height: 50%;
+  margin: 2vh 0 0 0;
+  position: static;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+#i1p5o {
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #000000;
+  text-decoration: none;
+  display: inline-block;
+}
+#it826 {
+  margin: 6px 0 0 0;
+  padding: 10px 10px 10px 3px;
+  display: inline-block;
+}
+#i3p65 {
+  flex: 0 1 auto;
+  display: none;
+}
+#i96wt {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+#iisp9 {
+  flex: 0 1 auto;
+}
+#ipud2 {
+  align-items: center;
+  min-height: auto;
+}
+.gpd-navbar__item {
+  flex: 0 1 auto;
+}
+.gpd-navbar__item-link {
+  color: inherit;
+  text-decoration: none;
+}
+.navlinks {
+  text-decoration: none;
+  color: #000000;
+}
+.navlinks:hover {
+  color: #4224cd;
+}
+
+/* Tab spacing */
+#i5vvn,
+#ilap1,
+#ilap2,
+#imju2,
+#i46oj {
+  padding: 5px 8px;
+  margin: 0 0 0 12px;
+}
+#i5vvn {
+  margin-left: 0;
+}
+
+/* Link-specific active states */
+#i6w53,
+#i4s29,
+#iilnb,
+#ig12r {
+  text-decoration: none;
+  color: #000000;
+}
+#i4s28 {
+  text-decoration: none;
+  color: #4224cd !important;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   PAGE CONTENT WRAPPER & TITLE (Theme Styled)
+   ========================================================================== */
+.frb-page-wrapper {
+  background-color: #f1bdbd;
+  padding: 1px 0 50px 0;
+  min-height: 80vh;
+}
+
+/* Page Title Row matching Research / Resume / Projects */
+#ivvj38 {
+  margin: 8vh 0 0 0;
+  padding: 0 0 10px 0;
+  justify-content: center;
+}
+#ioyrvi {
+  align-self: center;
+  text-align: center;
+  flex: 0 0 auto;
+}
+#i4n9uj {
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+#ilhx6v {
+  text-align: right;
+  align-self: center;
+  padding: 5px 0 5px 0;
+  flex: 0 0 auto;
+}
+#ivp4zj {
+  width: 4vh;
+  height: 4vh;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+#ivn4b1 {
+  align-self: center;
+  text-align: left;
+  padding-left: 15px;
+}
+#i72k1h {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+.frb-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 1100px;
+  width: 90%;
+  margin: 25px auto 0 auto;
+}
+
+/* ==========================================================================
+   OUTPUT AREA (Top Plot Card)
+   ========================================================================== */
+.output-area {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+}
+#warning-div {
+  background: #e67e22;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  display: none;
+  font-weight: 600;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  text-align: center;
+}
+#loading {
+  text-align: center;
+  font-weight: 600;
+  font-size: 17px;
+  color: #4224cd;
+  display: none;
+  margin: 30px 0;
+}
+#plot-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+#plot-div {
+  width: 1000px;
+  max-width: 100%;
+  min-height: 250px;
+}
+#plot-placeholder {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+  font-size: 1.05rem;
+  border: 2px dashed #e0d0d0;
+  border-radius: 6px;
+  background: #faf7f7;
+}
+
+/* ==========================================================================
+   INPUT AREA (Bottom Parameters Card)
+   ========================================================================== */
+.input-area {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
+}
+.input-area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-bottom: 2px solid #ede4e4;
+  padding-bottom: 18px;
+  margin-bottom: 25px;
+}
+.input-area-header h3 {
+  margin: 0;
+  color: #111111;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 30px;
+}
+.form-group {
+  margin-bottom: 8px;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 13.5px;
+  color: #333333;
+}
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;
+}
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #4224cd;
+  box-shadow: 0 0 0 3px rgba(66, 36, 205, 0.15);
+}
+
+/* Stokes Sub-Grid */
+.stokes-group {
+  grid-column: span 2;
+  background: #faefef;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 10px;
+  border: 1px solid #f2dede;
+}
+.stokes-group h4 {
+  margin: 0 0 15px 0;
+  color: #222222;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.stokes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+/* Buttons */
+.btn-run-simulation {
+  display: inline-block;
+  background-color: #4224cd;
+  color: #ffffff;
+  border: 2px solid #4224cd;
+  border-radius: 25px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(66, 36, 205, 0.25);
+  text-align: center;
+}
+.btn-run-simulation:hover {
+  background-color: #ffffff;
+  color: #4224cd;
+  box-shadow: 0 6px 14px rgba(66, 36, 205, 0.35);
+}
+.btn-resolve-stokes {
+  background-color: #ffffff;
+  color: #4224cd;
+  border: 2px solid #4224cd;
+  border-radius: 20px;
+  padding: 8px 22px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 14px;
+}
+.btn-resolve-stokes:hover {
+  background-color: #4224cd;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   BOTTOM FOOTER PANEL (White Background)
+   ========================================================================== */
+#iub04r {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  padding: 10px 0;
+}
+#ieeymo {
+  justify-content: space-between;
+  padding: 0;
+  margin: 1vh 0 0 0;
+}
+#ivt8en {
+  padding: 0 5px 0 5px;
+}
+#iq09uy {
+  margin: 3% 0 0 0;
+  font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+  font-size: 12px;
+}
+#i0ka9k {
+  align-self: stretch;
+  padding: 0;
+}
+#ixc4q3 {
+  padding: 0;
+}
+#izkukg {
+  text-align: center;
+  padding: 0;
+}
+#iasg9b {
+  text-align: center;
+  font-size: 1em;
+}
+#ifosxo {
+  font-family: Lucida Sans Unicode, Lucida Grande, sans-serif;
+  font-weight: 400;
+  margin: 3% 0 0 0;
+  font-size: 0.8em;
+}
+#ir3lzy {
+  align-self: stretch;
+  flex: 1 1 100%;
+  padding: 0;
+}
+#i65z5l {
+  text-align: center;
+  font-size: 1em;
+}
+#ipx4hk {
+  background-color: #ffffff;
+  padding: 0;
+  margin: 3% 0 0 0;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#ihxo3n,
+#ixkesu,
+#iy3tbj,
+#ia6ce7 {
+  padding: 0;
+  flex: 0 1 auto;
+  align-self: stretch;
+}
+#isysjf,
+#inoi2l,
+#ij2kqk,
+#it0cx1 {
+  width: 4vh;
+  height: 4vh;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+.gpd-link-box {
+  padding: 0;
+  margin: 5px;
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+  #i3p65 {
+    display: block;
+  }
+  .gpd-navbar__items {
+    display: none;
+    width: 100%;
+  }
+  .gpd-navbar__item {
+    flex: 1 1 100%;
+  }
+  .gpd-navbar__items-grid {
+    flex-wrap: wrap;
+  }
+  .gpd-navbar__item-link {
+    width: 100%;
+  }
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+  .stokes-group {
+    grid-column: span 1;
+  }
+  .stokes-grid {
+    grid-template-columns: 1fr;
+  }
+  .input-area-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-run-simulation {
+    width: 100%;
+  }
+  #i72k1h {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 415px) {
+  #i5vvn,
+  #ilap1,
+  #ilap2,
+  #imju2,
+  #i46oj {
+    padding: 5px 4px;
+    margin: 0 0 0 4px;
+    flex: 0 1 auto;
+  }
+  #i5vvn {
+    margin-left: 0;
+  }
+  #ipud2 {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+  }
+  #iisp9 {
+    flex: 1 1 100%;
+    align-self: stretch;
+    position: absolute;
+    top: 10vh;
+    z-index: 10;
+    background-color: #ffffff;
+  }
+  #ir5f {
+    white-space: nowrap;
+  }
+  #ivt8en {
+    display: none;
+  }
+  #iasg9b,
+  #ifosxo {
+    margin: 0;
+  }
+}
+

@@ -84,25 +84,25 @@ body {
 #i4s29{
   text-decoration:none;
 }
-#iilnb{
+#i4s28{
   text-decoration:none;
 }
-#imju2{
-  margin:0 0 0 13px;
+#iilnb{
+  text-decoration:none;
 }
 #ig12r{
   text-decoration:none;
 }
+#i5vvn,
+#ilap1,
+#ilap2,
+#imju2,
 #i46oj{
-  margin:0 0 0 13px;
+  padding:5px 8px;
+  margin:0 0 0 12px;
 }
 #i5vvn{
-  padding:5px 5px 5px 5px;
-  margin:0 0 0 13px;
-}
-#ilap1{
-  padding:5px 5px 5px 5px;
-  margin:0 0 0 13px;
+  margin-left:0;
 }
 .gpd-box{
   padding:5px 0;
@@ -150,8 +150,9 @@ body {
   font-size:2em;
   font-weight:700;
   text-align:center;
-  margin:5% 0 0 0;
+  margin:3% 0 0 0;
   display:inherit;
+  white-space:nowrap;
 }
 #i6oqr{
   padding:0 0 0 0;
@@ -160,24 +161,27 @@ body {
 }
 #icmzu{
   color:black;
-  border-radius:50% 50% 50% 50%;
+  border-radius:50%;
   max-width:80%;
-  width:28vh;
+  width:30vh;
+  height:30vh;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
 }
 .gpd-divider{
   height:3px;
-  margin:10px 10px 10px 10px;
+  margin:6px auto;
   background-color:rgba(0,0,0,0.05);
 }
 #iajrx{
   background-color:#4224cd;
   width:16%;
-  margin:0 10px 0 42%;
+  margin:6px auto;
 }
 #i3w8w{
-  font-size:1.2em;
+  font-size:1.15em;
   font-weight:300;
-  padding:1vh 10px 1vh 10px;
+  padding:0.5vh 10px;
 }
 #i3usa{
   padding:0 0 0 0;
@@ -899,6 +903,7 @@ body {
   }
   #ig0jc{
     letter-spacing:-2px;
+    white-space:nowrap;
   }
   #istbj{
     flex-wrap:wrap;
@@ -960,11 +965,25 @@ body {
   #ilap1{
     flex:0 1 auto;
   }
+  #ilap2{
+    flex:0 1 auto;
+  }
   #imju2{
     flex:0 1 auto;
   }
   #i46oj{
     flex:0 1 auto;
+  }
+  #i5vvn,
+  #ilap1,
+  #ilap2,
+  #imju2,
+  #i46oj{
+    padding:5px 4px;
+    margin:0 0 0 4px;
+  }
+  #i5vvn{
+    margin-left:0;
   }
   #i1p5o{
     font-size:1.5em;

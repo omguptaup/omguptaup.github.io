@@ -2,182 +2,243 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faraday Conversion: Polarization Evolution in Magnetar Wind</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Faraday Conversion</title>
+    <link rel="icon" type="image/jfif" href="img/tab-favicon.jfif">
+    <link rel="apple-touch-icon" href="img/tab-favicon.jfif">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/gjs-base.css">
+    <link rel="stylesheet" href="css/frb_cp.css">
+    <!-- Load MathJax v2 with SVG output support -->
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_SVG">
+    </script>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; 
-            padding: 20px;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        h1 { 
-            text-align: center; 
-            color: #2c3e50; 
-            margin-bottom: 30px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            max-width: 1100px; /* Comfortably wider than the 1000px plot */
-            margin: 0 auto;
-        }
-        
-        /* OUTPUT AREA (TOP) */
-        .output-area {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centers the plot */
-            overflow-x: auto; /* Adds scrollbar if window is too small */
-        }
-        #plot-div {
-            width: 1000px;
-            min-height: 250px;
-        }
-        #warning-div {
-            background: #f39c12; color: white; padding: 15px;
-            border-radius: 8px; display: none; font-weight: bold;
-            width: 100%; box-sizing: border-box; margin-bottom: 15px;
-        }
-        #loading {
-            text-align: center; font-weight: bold; font-size: 18px;
-            color: #2980b9; display: none; margin: 40px 0;
-        }
-
-        /* INPUT AREA (BOTTOM) */
-        .input-area {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        .input-area h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .input-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px 30px;
-        }
-        .form-group { 
-            margin-bottom: 5px; 
-        }
-        label { 
-            display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px;
-            color: #444;
-        }
-        input[type="number"], input[type="text"], select {
-            width: 100%; padding: 10px; box-sizing: border-box;
-            border: 1px solid #ccc; border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        /* STOKES SUB-GRID */
-        .stokes-group {
-            grid-column: span 2; /* Spans both columns of the main grid */
-            background: #eef2f3; 
-            padding: 20px; 
-            border-radius: 8px; 
-            margin-top: 10px;
-        }
-        .stokes-group h4 { margin: 0 0 15px 0; color: #2c3e50;}
-        .stokes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
-        }
-        
-        button {
-            background-color: #3498db; color: white; border: none;
-            padding: 12px 15px; font-size: 16px; border-radius: 5px; font-weight: bold;
-            cursor: pointer; width: 100%; margin-top: 20px;
-            transition: background-color 0.2s;
-        }
-        button:hover { background-color: #2980b9; }
-        .btn-secondary { 
-            background-color: #95a5a6; margin-top: 15px; width: auto; 
-            padding: 10px 20px; font-size: 14px;
-        }
-        .btn-secondary:hover { background-color: #7f8c8d; }
-    </style>
 </head>
 <body>
 
-<h1>Magnetar Wind Polarization Plotter</h1>
-
-<div class="container">
-    
-    <!-- OUTPUT AREA (TOP) -->
-    <div class="output-area">
-        <div id="warning-div"></div>
-        <div id="loading">Initializing Abaco Container and Computing... Please wait.</div>
-        <div id="plot-div">
-            <!-- This empty placeholder helps hold the layout size before the first run -->
-            <div style="height: 220px; display: flex; align-items: center; justify-content: center; color: #999;">
-                Simulation output will appear here.
-            </div>
+<!-- TOP NAVIGATION PANEL -->
+<div id="imyq" class="gpd-navbar">
+  <div id="ip3p" class="gpd-container gpd-cnt">
+    <div id="ir5f" class="gdp-row gpd-grid">
+      <div id="ilpm" class="cell gpd-clm">
+        <a id="i3ci" class="gpd-link-box" href="index.html">
+          <div title="" id="ilfm"></div>
+          <span id="ivr5b" class="gpd-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="i26s6">
+              <path d="M3 3v18h18V3" id="i72ih"></path>
+            </svg>
+          </span>
+          <a id="i1p5o" class="gpd-link" href="index.html"><b>Om Gupta</b></a>
+          <div id="it826" class="gpd-text">/&nbsp; &nbsp;Master of Science</div>
+        </a>
+      </div>
+      <div id="i3p65" class="cell gpd-navbar__menu">
+        <a id="i96wt" class="gpd-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path>
+          </svg>
+        </a>
+      </div>
+      <div id="iisp9" class="cell gpd-navbar__items">
+        <div id="ipud2" class="gdp-row gpd-navbar__items-grid">
+          <div id="i5vvn" class="cell gpd-navbar__item">
+            <a href="index.html" id="i6w53" class="gpd-navbar__item-link navlinks">About Me</a>
+          </div>
+          <div id="ilap1" class="cell gpd-navbar__item">
+            <a href="resume.html" id="i4s29" class="gpd-navbar__item-link navlinks">Resume</a>
+          </div>
+          <div id="ilap2" class="cell gpd-navbar__item">
+            <a href="frb_cp.html" id="i4s28" class="gpd-navbar__item-link navlinks">FRB CP</a>
+          </div>
+          <div id="imju2" class="cell gpd-navbar__item">
+            <a href="research.html" id="iilnb" class="gpd-navbar__item-link navlinks">Research</a>
+          </div>
+          <div id="i46oj" class="cell gpd-navbar__item">
+            <a id="ig12r" href="contact.html" class="gpd-navbar__item-link navlinks">Contact</a>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="frb-page-wrapper">
+
+    <!-- Page Title matching other pages -->
+    <div id="ivvj38" class="gdp-row gpd-grid">
+      <div id="ioyrvi" class="cell gpd-clm">
+        <div id="i4n9uj" class="gdp-row gpd-grid">
+          <div id="ilhx6v" class="cell gpd-clm">
+            <span id="ivp4zj" class="gpd-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 3v18h18V3">
+              </path>
+              </svg></span>
+          </div>
+          <div id="ivn4b1" class="cell gpd-clm">
+            <h1 id="i72k1h" class="gpd-header">Visualize FRB Polarization Evolution in Magnetar Wind</h1>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- INPUT AREA (BOTTOM) -->
-    <div class="input-area">
-        <h3>Simulation Parameters</h3>
-        <div class="input-grid">
-            <div class="form-group"><label>nu_start (Hz)</label><input type="number" id="nu_start" value="1.0e9"></div>
-            <div class="form-group"><label>nu_end (Hz)</label><input type="number" id="nu_end" value="1.1e9"></div>
-            
-            <div class="form-group"><label>nu_points</label><input type="number" id="nu_points" value="101"></div>
-            <div class="form-group"><label>wind_mag0</label><input type="number" id="wind_mag0" value="10000.0"></div>
-            
-            <div class="form-group"><label>gamma0</label><input type="number" id="gamma0" value="10.0"></div>
-            <div class="form-group"><label>mugamma</label><input type="number" id="mugamma" value="1.0"></div>
-            
-            <div class="form-group"><label>iload</label><input type="number" id="iload" value="0.001" step="0.001"></div>
-            <div class="form-group"><label>phi_B</label><input type="number" id="phi_B" value="0.0"></div>
-            
-            <div class="form-group"><label>L_frb</label><input type="number" id="L_frb" value="1e40"></div>
-            <div class="form-group"><label>L_wind_37</label><input type="number" id="L_wind_37" value="10.0"></div>
-            
-            <div class="form-group">
-                <label>nframes (Max 200)</label>
-                <input type="number" id="nframes" value="100" min="1" max="200" step="1">
-            </div>
-            <div class="form-group">
-                <label>Polarization representation</label>
-                <select id="choice">
-                    <option value="1">Stokes Q, U, V</option>
-                    <option value="2" selected>PA, EA</option>
-                </select>
-            </div>
-
-            <!-- STOKES PARAMS -->
-            <div class="stokes-group">
-                <h4>Initial Stokes Parameters</h4>
-                <div class="stokes-grid">
-                    <div class="form-group"><label>Q_in</label><input type="number" id="Q_in" value="0.7" step="0.001"></div>
-                    <div class="form-group"><label>U_in</label><input type="number" id="U_in" value="0.7141428" step="0.001"></div>
-                    <div class="form-group"><label>V_in</label><input type="number" id="V_in" value="0.0" step="0.001"></div>
+    <div class="frb-container">
+        
+        <!-- OUTPUT AREA (TOP) -->
+        <div class="output-area">
+            <div id="warning-div"></div>
+            <div id="loading">Initializing Abaco Container and Computing... Please wait.</div>
+            <div id="plot-container">
+                <div id="plot-placeholder">
+                    Simulation output will appear here.
                 </div>
-                <button type="button" class="btn-secondary" onclick="resolveStokes()">Resolve Stokes</button>
+                <div id="plot-div" style="display: none;"></div>
             </div>
         </div>
 
-        <button onclick="runSimulation()">Run Simulation</button>
+        <!-- INPUT AREA (BOTTOM) -->
+        <div class="input-area">
+            <div class="input-area-header">
+                <h3>Simulation Parameters</h3>
+                <button type="button" class="btn-run-simulation" onclick="runSimulation()">Run Simulation</button>
+            </div>
+
+            <div class="input-grid">
+                <div class="form-group"><label>nu_start (Hz)</label><input type="number" id="nu_start" value="1.0e9"></div>
+                <div class="form-group"><label>nu_end (Hz)</label><input type="number" id="nu_end" value="1.1e9"></div>
+                
+                <div class="form-group"><label>nu_points</label><input type="number" id="nu_points" value="101"></div>
+                <div class="form-group"><label>wind_mag0</label><input type="number" id="wind_mag0" value="10000.0"></div>
+                
+                <div class="form-group"><label>gamma0</label><input type="number" id="gamma0" value="10.0"></div>
+                <div class="form-group"><label>mugamma</label><input type="number" id="mugamma" value="1.0"></div>
+                
+                <div class="form-group"><label>iload</label><input type="number" id="iload" value="0.001" step="0.001"></div>
+                <div class="form-group"><label>phi_B</label><input type="number" id="phi_B" value="0.0"></div>
+                
+                <div class="form-group"><label>L_frb</label><input type="number" id="L_frb" value="1e40"></div>
+                <div class="form-group"><label>L_wind_37</label><input type="number" id="L_wind_37" value="10.0"></div>
+                
+                <div class="form-group">
+                    <label>nframes (Max 200)</label>
+                    <input type="number" id="nframes" value="100" min="1" max="200" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Polarization representation</label>
+                    <select id="choice">
+                        <option value="1">Stokes Q, U, V</option>
+                        <option value="2" selected>PA, EA</option>
+                    </select>
+                </div>
+
+                <!-- STOKES PARAMS -->
+                <div class="stokes-group">
+                    <h4>Initial Stokes Parameters</h4>
+                    <div class="stokes-grid">
+                        <div class="form-group"><label>Q_in</label><input type="number" id="Q_in" value="0.7" step="0.001"></div>
+                        <div class="form-group"><label>U_in</label><input type="number" id="U_in" value="0.7141428" step="0.001"></div>
+                        <div class="form-group"><label>V_in</label><input type="number" id="V_in" value="0.0" step="0.001"></div>
+                    </div>
+                    <button type="button" class="btn-resolve-stokes" onclick="resolveStokes()">Resolve Stokes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- BOTTOM FOOTER PANEL -->
+<div id="iub04r" class="gpd-box">
+  <div id="ieeymo" class="gdp-row gpd-grid">
+    <div id="ivt8en" class="cell gpd-clm">
+      <div id="iq09uy" class="gpd-text">© 2026 by Om Gupta.
+      </div>
+    </div>
+    <div id="i0ka9k" class="cell gpd-clm">
+      <div class="col">
+      </div>
+      <div id="ixc4q3" class="gdp-row gpd-grid">
+        <div id="izkukg" class="cell gpd-clm">
+          <div class="col">
+            <h3 id="iasg9b" class="gpd-header">Write
+            </h3>
+          </div>
+          <div id="ifosxo" class="gpd-text">omgupta@utexas.edu
+          </div>
+        </div>
+        <div id="ir3lzy" class="cell gpd-clm">
+          <div class="col">
+            <h3 id="i65z5l" class="gpd-header">Follow
+            </h3>
+          </div>
+          <div id="ipx4hk" class="gdp-row gpd-grid">
+            <div id="ihxo3n" class="cell gpd-clm">
+              <a class="gpd-link-box" href="https://www.facebook.com/omg.rego2014/" target="_blank"><span id="isysjf" class="gpd-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M17 2v4h-2c-.69 0-1 .81-1 1.5V10h3v4h-3v8h-4v-8H7v-4h3V6c0-2.21 1.79-4 4-4h3z">
+                </path>
+                </svg></span></a>
+            </div>
+            <div id="ixkesu" class="cell gpd-clm">
+              <a class="gpd-link-box" href="https://twitter.com/om_n_gupta" target="_blank"><span id="inoi2l" class="gpd-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z">
+                </path>
+                </svg></span></a>
+            </div>
+            <div id="iy3tbj" class="cell gpd-clm">
+              <a class="gpd-link-box" href="https://www.linkedin.com/in/om-gupta-144223134/" target="_blank"><span id="ij2kqk" class="gpd-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M21 21h-4v-6.75c0-1.06-1.19-1.94-2.25-1.94S13 13.19 13 14.25V21H9V9h4v2c.66-1.07 2.36-1.76 3.5-1.76 2.5 0 4.5 2.04 4.5 4.51V21M7 21H3V9h4v12M5 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z">
+                </path>
+                </svg></span></a>
+            </div>
+            <div id="ia6ce7" class="cell gpd-clm">
+              <a class="gpd-link-box" href="https://www.instagram.com/dish.me.out.some.jam/" target="_blank"><span id="it0cx1" class="gpd-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2C5.61 4 4 5.61 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8c1.99 0 3.6-1.61 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5m0 2c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z">
+                </path>
+                </svg></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+    // Responsive hamburger menu toggle
+    var items = document.querySelectorAll('#i96wt');
+    for (var i = 0, len = items.length; i < len; i++) {
+      (function(){
+        var t,e=0,n='gjs-collapse',r='max-height',o='ease-in-out',j=.25,a=function(){
+          var t,e=document.createElement('void'),n={
+            transition:'transitionend',OTransition:'oTransitionEnd',MozTransition:'transitionend',WebkitTransition:'webkitTransitionEnd'};
+          for(t in n)if(void 0!==e.style[t])return n[t]}
+        (),s=function(t){
+          e=1;
+          var n=function(t){
+            var e=window.getComputedStyle(t),n=e.display,o=parseInt(e[r]);
+            if('none'!==n&&'0'!==o)return t.offsetHeight;
+            t.style.height='auto',t.style.display='block',t.style.position='absolute',t.style.visibility='hidden';
+            var i=t.offsetHeight;
+            return t.style.height='',t.style.display='',t.style.position='',t.style.visibility='',i}
+          (t),a=t.style;
+          a.display='block',a.transition=r+' '+j+'s '+o,a.overflowY='hidden',''==a[r]&&(a[r]=0),0==parseInt(a[r])?(a[r]='0',setTimeout(function(){
+            a[r]=n+'px'}
+            ,10)):a[r]='0'};
+        n in this||this.addEventListener('click',function(n){
+          if(n.preventDefault(),!e){
+            var o=this.closest('.gpd-navbar').querySelector(".gpd-navbar__items");
+            s(o),t||(o.addEventListener(a,function(){
+              e=0;
+              var t=o.style;
+              0==parseInt(t[r])&&(t.display='',t[r]='')}
+              ),t=1)}
+        }
+        ),this[n]=1
+      }
+       .bind(items[i]))();
+    }
+
     // 1. Logic to resolve Stokes Parameters
     function resolveStokes() {
         let qStr = document.getElementById('Q_in').value;
@@ -225,7 +286,7 @@
         }
     }
 
-    // 2. Logic to run the simulation via your Render Proxy
+    // 2. Logic to run the simulation via remote Render Proxy
     async function runSimulation() {
         // Validate max frames
         let nframes = parseInt(document.getElementById('nframes').value);
@@ -255,15 +316,17 @@
 
         const loadingDiv = document.getElementById('loading');
         const warningDiv = document.getElementById('warning-div');
+        const placeholderDiv = document.getElementById('plot-placeholder');
+        const plotDiv = document.getElementById('plot-div');
         
         loadingDiv.style.display = 'block';
         warningDiv.style.display = 'none';
         
-        // Remove the placeholder or old plot
+        // Remove old plot if any
         Plotly.purge('plot-div'); 
 
         try {
-            // Send payload to your remote Render Flask proxy
+            // Send payload to remote Render Flask proxy
             const response = await fetch("https://omguptaup-github-io.onrender.com/run-simulation", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
@@ -282,7 +345,13 @@
                 warningDiv.style.display = 'block';
             }
 
-            // Render Plotly graph directly from the pre-parsed backend figure JSON
+            // Hide placeholder and reveal plotDiv
+            if (placeholderDiv) {
+                placeholderDiv.style.display = 'none';
+            }
+            plotDiv.style.display = 'block';
+
+            // Render Plotly graph directly from backend figure JSON
             loadingDiv.style.display = 'none';
             Plotly.newPlot('plot-div', logsData.plotData.data, logsData.plotData.layout);
 

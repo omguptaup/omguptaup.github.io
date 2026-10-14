@@ -1,5 +1,6 @@
 Flask==3.0.0
 flask-cors==4.0.0
+Flask-Limiter==3.8.0
 tapipy==1.5.0
 numpy==1.26.4
 plotly==5.20.0

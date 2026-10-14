@@ -9,11 +9,27 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from tapipy.tapis import Tapis
 
 app = Flask(__name__)
 # Allow CORS for your GitHub Pages domain (update this to your actual GitHub IO URL)
 CORS(app, origins=["https://omguptaup.github.io"]) # Change "*" to "https://yourusername.github.io" for production
+
+limiter = Limiter(
+    key_func=get_remote_address,
+    app=app,
+    default_limits=["100 per day", "40 per hour", "3 per minute"],
+    storage_uri="memory://",
+)
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return jsonify({
+        "status": "error",
+        "message": f"Job rate limit exceeded: {e.description}"
+    }), 429
 
 # Retrieve secrets from Render Environment Variables
 TAPIS_USERNAME = os.environ.get("TAPIS_USERNAME")
@@ -55,12 +71,49 @@ def trajectory(Omega, P0):
     return lon_traj, lat_traj
 
 @app.route("/", methods=["GET"])
+@limiter.exempt
 def health_check():
   return "Backend server is running and healthy!", 200
 
 @app.route("/run-simulation", methods=["POST"])
+@limiter.limit("3 per minute")
+@limiter.limit("40 per hour")
+@limiter.limit("100 per day")
 def run_simulation():
-    data = request.json
+    data = request.json or {}
+
+    # Server-side input bounds verification
+    try:
+        nframes = int(data.get("nframes", 100))
+        if nframes > 200 or nframes <= 0:
+            return jsonify({
+                "status": "error",
+                "message": f"nframes ({nframes}) exceeds maximum allowable bound (200)."
+            }), 400
+
+        nu_points = int(data.get("nu_points", 101))
+        if nu_points > 501 or nu_points <= 0:
+            return jsonify({
+                "status": "error",
+                "message": f"nu_points ({nu_points}) exceeds maximum allowable bound (501)."
+            }), 400
+
+        q_in = float(data.get("Q_in", 0.0))
+        u_in = float(data.get("U_in", 0.0))
+        v_in = float(data.get("V_in", 0.0))
+        stokes_sq_sum = q_in**2 + u_in**2 + v_in**2
+        if stokes_sq_sum > 1.00001:
+            return jsonify({
+                "status": "error",
+                "message": f"Squared sum of Stokes parameters (Q² + U² + V² = {stokes_sq_sum:.5f}) exceeds 1."
+            }), 400
+
+    except (ValueError, TypeError) as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Invalid input parameter format: {str(e)}"
+        }), 400
+
     choice = int(data.get("choice", 2))
     
     if not all([TAPIS_USERNAME, TAPIS_PASSWORD, ACTOR_ID]):
